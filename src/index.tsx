@@ -77,7 +77,9 @@ const defaultRenderImage = ({
   return (
     <Image
       onLoad={(e) => {
-        const { height: h, width: w } = e.nativeEvent.source;
+        // Handle both web and native events
+        const source = e.nativeEvent?.source || { width: e.target?.width, height: e.target?.height };
+        const { height: h, width: w } = source;
         setImageDimensions({ height: h, width: w });
       }}
       source={{ uri: item }}
